@@ -4,12 +4,14 @@ import {
   jsonInputForTargetLanguage,
   JSONSchemaInput,
   FetchingJSONSchemaStore,
+  RendererOptions,
 } from "quicktype-core";
 
 export async function quicktypeJSON(
   targetLanguage: string,
   typeName: string,
   jsonString: string,
+  rendererOptions?: RendererOptions,
 ): Promise<{ lines: string[] }> {
   const jsonInput = jsonInputForTargetLanguage(targetLanguage);
 
@@ -27,6 +29,7 @@ export async function quicktypeJSON(
   return await quicktype({
     inputData,
     lang: targetLanguage,
+    rendererOptions,
   });
 }
 

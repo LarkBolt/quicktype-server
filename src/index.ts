@@ -7,9 +7,19 @@ app.use(express.json());
 
 app.post("/json", async (req, res) => {
   const metaData = req.body;
-  const { targetLanguage, typeName, jsonString } = metaData;
-  const result = await quicktypeJSON(targetLanguage, typeName, jsonString);
-  res.send(result);
+  const { targetLanguage, typeName, jsonString, rendererOptions } = metaData;
+  try {
+    const result = await quicktypeJSON(
+      targetLanguage,
+      typeName,
+      jsonString,
+      rendererOptions,
+    );
+    res.send(result);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(error);
+  }
 });
 
 app.listen(port, () => {
